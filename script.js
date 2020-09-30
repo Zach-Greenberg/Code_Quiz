@@ -1,151 +1,57 @@
-$(document).ready(function(){
+var questions = [
+    {
+        question: "Commonly used data types DO NOT include:",
+        choices: ["Strings", "Booleans", "Alerts", "Numbers"],
+        answer: "Alerts"
+    },
+    {
+        question: "The condition in an if / else statement is enclosed within ____.",
+        choices: ["Parentheses", "Curly Brackets", "Quotes", "Square Brackets"],
+        answer: "Parentheses"
+    },
+    {
+        question: "Arrays in Javascript can be used to store ____.",
+        choices: ["Numbers and Strings", "Booleans", "Other Arrays", "all of the above"],
+        answer: "all of the above"
+    },
+    {
+        question: "String values must be enclosed within ____ when being assigned to variables.",
+        choices: ["Commas", "Curly Brackets", "Quotes", "Parenthesis"],
+        answer: "Quotes"
+    },
+    {
+        question: "A very useful tool for used during development and debugging for printing content to the debugger is:",
+        choices: ["Javascript", "Console.log", "Terminal/Bash", "For Loops"],
+        answer: "Console.log"
+    },
 
-    var questions = [
-        {
-            questionNumber: 1,
-            questionText: "Commonly used data types DO NOT include:",
-            answers: [{
-              answerNumber: 1,
-              answerText: 'Strings',
-              answerCorrect: false
-            },
-            {
-              answerNumber: 2,
-              answerText: 'Booleans',
-              answerCorrect: false
-            },
-            {
-              answerNumber: 3,
-              answerText: "Alerts",
-              answerCorrect: true
-            },
-            {
-              answerNumber: 4,
-              answerText: 'Numbers',
-              answerCorrect: false
-            }],
-        },
-        {
-            questionNumber: 2,
-            questionText: "The condition in an if/else statement is enclosed within ____.",
-            answers: [{
-              answerNumber: 1,
-              answerText: 'Parentheses',
-              answerCorrect: true
-            },
-            {
-              answerNumber: 2,
-              answerText: 'Curly Brackets',
-              answerCorrect: false
-            },
-            {
-              answerNumber: 3,
-              answerText: "Quotes",
-              answerCorrect: false
-            },
-            {
-              answerNumber: 4,
-              answerText: 'Square Brackets',
-              answerCorrect: false
-            }],
-        },
-        {
-            questionNumber: 3,
-            questionText: "Arrays in JavaScript can be used to store ____.",
-            answers: [{
-              answerNumber: 1,
-              answerText: 'Numbers and Strings',
-              answerCorrect: false
-            },
-            {
-              answerNumber: 2,
-              answerText: 'Booleans',
-              answerCorrect: false
-            },
-            {
-              answerNumber: 3,
-              answerText: "Other Arrays",
-              answerCorrect: false
-            },
-            {
-              answerNumber: 4,
-              answerText: 'All of the above',
-              answerCorrect: true
-            }],
-        },
-        {
-            questionNumber: 4,
-            questionText: "String values must be enclosed within ____ when being assigned to variables.",
-            answers: [{
-              answerNumber: 1,
-              answerText: 'Commas',
-              answerCorrect: false
-            },
-            {
-              answerNumber: 2,
-              answerText: 'Curlry Brackets',
-              answerCorrect: false
-            },
-            {
-              answerNumber: 3,
-              answerText: "Quotes",
-              answerCorrect: true
-            },
-            {
-              answerNumber: 4,
-              answerText: 'Parenthesis',
-              answerCorrect: false
-            }],
-        },
-        {
-            questionNumber: 5,
-            questionText: "A very useful tool to use during development and debugging for printing content to the debugger is:",
-            answers: [{
-              answerNumber: 1,
-              answerText: 'JavaScript',
-              answerCorrect: false
-            },
-            {
-              answerNumber: 2,
-              answerText: 'Console Log',
-              answerCorrect: true
-            },
-            {
-              answerNumber: 3,
-              answerText: "Terminal/Bash",
-              answerCorrect: false
-            },
-            {
-              answerNumber: 4,
-              answerText: 'For Loops',
-              answerCorrect: false
-            }],
-        }
-    ];
+];
+
 var score = 0;
 var questionIndex = 0;
 
-var clock = document.querySelector("#Time");
-var begin = document.querySelector("#begin");
-var question = document.querySelector("#questionsDiv");
-var container = document.querySelector("#container");
+var clock = document.querySelector("#clock");
+var timer = document.querySelector("#begin");
+var question = document.querySelector("#question");
+var wrapper = document.querySelector("#container");
 
 var penalty = 10;
 var clockTime = 80;
-var timeStop = 0;
+var holdInterval = 0;
 
-// make a list for the answer choices
-var options = document.createElement("ul");
 
-// start the quiz
-begin.addEventListener("click", function () {
-    if (timeStop === 0) {
-        timeStop = setInterval(function () {
+var newList = document.createElement("ul");
+
+
+timer.addEventListener("click", function () {
+
+    if (holdInterval === 0) {
+        holdInterval = setInterval(function () {
             clockTime--;
-            clock.textContent = "Time remaining: " + clockTime;
+            clock.textContent = "Time: " + clockTime;
 
-            if (secondsLeft === 0) {
-                clearInterval(timeStop);
+            if (clockTime <= 0) {
+                clearInterval(holdInterval);
                 allDone();
                 clock.textContent = "Time's up!";
             }
@@ -155,5 +61,56 @@ begin.addEventListener("click", function () {
 });
 
 
+function render(questionIndex) {
 
-})
+    question.innerHTML = "";
+    newList.innerHTML = "";
+
+    for (var i = 0; i < questions.length; i++) {
+
+        var userQuestion = questions[questionIndex].question;
+        var userChoices = questions[questionIndex].choices;
+        question.textContent = userQuestion;
+    }
+
+    userChoices.forEach(function (newItem) {
+        var listItem = document.createElement("li");
+        listItem.textContent = newItem;
+        question.appendChild(newList);
+        newList.appendChild(listItem);
+        listItem.addEventListener("click", (compare));
+    })
+}
+
+function compare(event) {
+    var element = event.target;
+
+    if (element.matches("li")) {
+
+        var createDiv = document.createElement("div");
+        createDiv.setAttribute("id", "createDiv");
+
+        if (element.textContent == questions[questionIndex].answer) {
+            score++;
+            createDiv.textContent = "Correct!";
+        } else {
+            clockTime = clockTime - penalty;
+            createDiv.textContent = "Wrong!";
+        }
+
+    }
+
+    questionIndex++;
+
+    if (questionIndex >= questions.length) {
+        allDone();
+        createDiv.textContent = "You got  " + score + " out of " + questions.length + " Correct!";
+    } else {
+        render(questionIndex);
+    }
+    question.appendChild(createDiv);
+
+}
+
+
+}
