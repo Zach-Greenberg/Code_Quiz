@@ -7,7 +7,7 @@ clear.addEventListener("click", function () {
     localStorage.clear();
     location.reload();
 });
-// Retreives local stroage 
+//local stroage 
 var leaderBoard = localStorage.getItem("allScores");
 leaderBoard = JSON.parse(leaderBoard);
 
@@ -21,7 +21,7 @@ if (leaderBoard !== null) {
 
     }
 }
-// Event listener to move to index page
+// start over
 back.addEventListener("click", function () {
     window.location.replace("index.html");
 });
