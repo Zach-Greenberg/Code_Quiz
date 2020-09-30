@@ -1,0 +1,57 @@
+#container {
+    position: absolute;
+    left: 33%;
+    top: 25%;
+    width: 500px;
+    height: 500px;
+    border: 2px solid teal;
+}
+#begin {
+    background-color: teal;
+    margin-left: 33%;
+    padding: 15px 30px;
+    font-size: 20px;
+    color: white;
+}
+#question {
+    margin: 20px;
+}
+
+#Time {
+    float: right;
+}
+
+#back {
+    background-color: teal;
+    position: relative;
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+    top: 33%;
+    left: 50%;
+    width: auto;
+    text-align: center;
+    text-decoration: none;
+}
+
+
+
+#clear {
+    background-color: teal;
+    position: relative;
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+    top: 33%;
+    right: 20px;
+    text-align: center;
+}
+
+button {
+    border-radius: 8px;
+}
+
+textarea {
+    width: 100%;
+    margin: 20px;
+}

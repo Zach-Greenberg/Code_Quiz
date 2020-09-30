@@ -122,6 +122,38 @@ $(document).ready(function(){
             }],
         }
     ];
+var score = 0;
+var questionIndex = 0;
+
+var clock = document.querySelector("#Time");
+var begin = document.querySelector("#begin");
+var question = document.querySelector("#questionsDiv");
+var container = document.querySelector("#container");
+
+var penalty = 10;
+var clockTime = 80;
+var timeStop = 0;
+
+// make a list for the answer choices
+var options = document.createElement("ul");
+
+// start the quiz
+begin.addEventListener("click", function () {
+    if (timeStop === 0) {
+        timeStop = setInterval(function () {
+            clockTime--;
+            clock.textContent = "Time remaining: " + clockTime;
+
+            if (secondsLeft === 0) {
+                clearInterval(timeStop);
+                allDone();
+                clock.textContent = "Time's up!";
+            }
+        }, 1000);
+    }
+    render(questionIndex);
+});
+
 
 
 })
