@@ -111,6 +111,73 @@ function compare(event) {
     question.appendChild(createDiv);
 
 }
+function allDone() {
+    question.innerHTML = "";
+    clock.innerHTML = "";
 
+    var allDone = document.createElement("h1");
+    allDone.setAttribute("id", "allDone");
+    allDone.textContent = "All Done!"
+
+    question.appendChild(allDone);
+
+    var createP = document.createElement("p");
+    createP.setAttribute("id", "createP");
+
+    question.appendChild(createP);
+
+    if (clockTime >= 0) {
+        var timeRemaining = clockTime;
+        var endScore = document.createElement("p");
+        clearInterval(holdInterval);
+        createP.textContent = "Your final score is: " + timeRemaining;
+
+        question.appendChild(endScore);
+    }
+    var textInitial = document.createElement("label");
+    textInitial.setAttribute("id", "textInitial");
+    textInitial.textContent = "Enter your initials: ";
+
+    question.appendChild(textInitial);
+
+    var askInitials = document.createElement("input");
+    askInitials.setAttribute("type", "text");
+    askInitials.setAttribute("id", "initials");
+    askInitials.textContent = "";
+
+    question.appendChild(askInitials);
+
+    var submitBtn = document.createElement("button");
+    submitBtn.setAttribute("type", "submit");
+    submitBtn.setAttribute("id", "Submit");
+    submitBtn.textContent = "Submit";
+
+    question.appendChild(submitBtn);
+
+    submitBtn.addEventListener("click", function () {
+        var initials = askInitials.value;
+
+        if (initials === null) {
+
+            console.log("N/A");
+
+        } else {
+            var finalScore = {
+                initials: initials,
+                score: timeRemaining
+            }
+            console.log(finalScore);
+            var allScores = localStorage.getItem("allScores");
+            if (allScores === null) {
+                allScores = [];
+            } else {
+                allScores = JSON.parse(allScores);
+            }
+            allScores.push(finalScore);
+            var newScore = JSON.stringify(allScores);
+            localStorage.setItem("allScores", newScore);
+            window.location.replace("HighScores.html");
+        }
+    });
 
 }
