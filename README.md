@@ -9,13 +9,13 @@ If you would like to test your Knowldge then please try it here [CodeQuiz](https
 
 Below are some images of how the program looks and runs.
 
-![CodeQuizStart](start.png)
+![CodeQuizStart](Assets\images\start.png)
 
-![CodeQuizQuestions](questions.png)
+![CodeQuizQuestions](Assets\images\questions.png)
 
-![CodeQuizAllDone](done.png)
+![CodeQuizAllDone](Assets\images\done.png)
 
-![CodeQuizScoreBoard](Highscores.png)
+![CodeQuizScoreBoard](Assets\images\Highscores.png)
 
 
 ### Things to improve upon and to look into
